@@ -4,39 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tienes un mensaje estelar</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="sobre.css">
 </head>
 <body>
 
-<div class="contenedor">
-    
-    <div class="envelope-wrapper" id="envelopeWrapper" onclick="openEnvelope()">
-        
-        <div class="main-title">MIS XV</div>
-        <div class="instruction">Toca el sello para abrir</div>
+    <!-- Fondo de estrellas -->
+    <div class="sky-background">
+        <div class="stars"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+    </div>
 
-        <div class="flap"></div>
-        <div class="seal">🌙</div>
-        
-        <div class="letter">
-            <div class="letter-border"></div>
+    <div class="contenedor">
+
+        <!-- Secuencia Lunar -->
+        <div class="moon-sequence">
+            <div class="moon">🌑</div>
+            <div class="moon">🌒</div>
+            <div class="moon">🌓</div>
+            <div class="moon">🌔</div>
+            <div class="moon-main">🌕</div>
+            <div class="moon">🌖</div>
+            <div class="moon">🌗</div>
+            <div class="moon">🌘</div>
         </div>
-        
-        <div class="envelope-front envelope-front-left"></div>
-        <div class="envelope-front envelope-front-right"></div>
-        <div class="envelope-front envelope-front-bottom"></div>
+
+        <!-- SOBRE -->
+        <div class="envelope-wrapper" id="envelopeWrapper" onclick="openEnvelope()">
+            
+            <div class="main-title">MIS XV</div>
+            <div class="instruction">Toca el sello para abrir</div>
+
+            <div class="flap"></div>
+            <div class="seal">🌙</div>
+            
+            <div class="letter">
+                <div class="letter-border"></div>
+            </div>
+            
+            <div class="envelope-front envelope-front-left"></div>
+            <div class="envelope-front envelope-front-right"></div>
+            <div class="envelope-front envelope-front-bottom"></div>
+
+        </div>
+
+        <!-- FRASE DEBAJO -->
+        <div class="mensaje-extra">
+            familia vinagre vázquez ✨
+        </div>
 
     </div>
 
-    <!-- 👇 FRASE DEBAJO -->
-    <div class="mensaje-extra">
-        Te espero para celebrar este día tan especial ✨
+    <!-- SEGUNDO FONDO (NO LO QUITO, pero lo mando atrás sin estorbar) -->
+    <div class="sky-background" style="z-index:-2;">
+        <div class="stars"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
+        <div class="shooting-star"></div>
     </div>
 
-</div>
+    <!-- CONTENEDOR EXTRA (se mantiene, pero no interfiere) -->
+    <div class="contenedor" style="display:none;">
+        <!-- Secuencia Lunar -->
+    </div>
 
-<script src="sobre.js"></script>
+    <!-- AUDIO -->
+    <audio id="backgroundMusic" loop>
+        <source src="/img/Luna.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <script src="sobre.js"></script>
 
 </body>
 </html>
