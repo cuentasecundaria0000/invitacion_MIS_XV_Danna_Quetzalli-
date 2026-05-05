@@ -278,3 +278,243 @@ section { padding: 100px 20px; max-width: 1100px; margin: 0 auto; text-align: ce
     border-bottom: 1px solid #aaa;
     padding-bottom: 2px;
 }
+/* --- SECCIÓN REGALOS --- */
+.gifts-section {
+    padding: 80px 20px;
+    background: linear-gradient(to bottom, transparent, rgba(199, 160, 32, 0.05));
+}
+
+.gifts-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.gift-card {
+    background: var(--glass);
+    border: 1px solid rgba(199, 160, 32, 0.2);
+    padding: 30px;
+    border-radius: 20px;
+    flex: 1;
+    min-width: 300px;
+    transition: transform 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+.gift-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--accent-gold);
+}
+
+.gift-icon {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+}
+
+.gift-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--accent-gold);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.gift-card p {
+    font-size: 0.95rem;
+    color: var(--moon-white);
+    line-height: 1.6;
+}
+
+.bank-details {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    text-align: left;
+}
+
+.bank-details p {
+    font-size: 0.85rem;
+    margin: 5px 0;
+}
+
+.bank-details strong {
+    color: var(--accent-gold);
+}
+
+/* Ajuste móvil */
+@media (max-width: 768px) {
+    .gifts-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .gift-card {
+        width: 100%;
+    }
+}
+/* --- SECCIÓN CARDS INFO --- */
+.info-cards-section {
+    padding: 60px 20px;
+    width: 100%;
+}
+
+.info-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.info-card {
+    background: var(--glass);
+    border: 1px solid rgba(199, 160, 32, 0.3);
+    border-radius: 25px;
+    padding: 40px 30px;
+    flex: 1;
+    min-width: 320px;
+    text-align: center;
+    backdrop-filter: blur(12px);
+    transition: all 0.4s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+    border-color: var(--accent-gold);
+}
+
+.card-icon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+}
+
+.info-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--accent-gold);
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.info-card p {
+    margin-bottom: 10px;
+    font-size: 1rem;
+    color: var(--moon-white);
+    opacity: 0.9;
+}
+
+/* Botón de Mapa */
+.map-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 25px;
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+    text-decoration: none;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.map-btn:hover {
+    background: var(--accent-gold);
+    color: white;
+}
+
+/* Etiquetas de Vestimenta */
+.dress-code-tags {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.dress-code-tags span {
+    background: rgba(199, 160, 32, 0.2);
+    padding: 5px 15px;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    color: var(--accent-gold);
+    border: 1px solid var(--accent-gold);
+}
+
+/* Ajuste Móvil */
+@media (max-width: 768px) {
+    .info-container {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .info-card {
+        width: 100%;
+        min-width: unset;
+    }
+}
+/* --- CONFIGURACIÓN DEL CIELO --- */
+.sky-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Se mantiene detrás de todo el contenido */
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%);
+    overflow: hidden;
+}
+
+/* Estrellas Estáticas (Efecto de polvo estelar) */
+.stars {
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    /* Generamos cientos de estrellas con sombras */
+    box-shadow: 10vw 20vh #fff, 35vw 45vh #fff, 80vw 15vh #fff, 60vw 70vh #fff, 15vw 90vh #fff, 45vw 10vh #fff, 90vw 80vh #fff, 25vw 35vh #fff, 55vw 55vh #fff;
+    box-shadow: 200px 300px #FFF, 500px 100px #FFF, 800px 400px #FFF, 100px 500px #FFF, 900px 200px #FFF, 400px 600px #FFF, 700px 800px #FFF, 300px 700px #FFF;
+    animation: twinkle 5s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* --- LLUVIA DE ESTRELLAS FUGACES --- */
+.shooting-star {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 2px;
+    background: linear-gradient(-45deg, #fff, rgba(0, 0, 255, 0));
+    border-radius: 999px;
+    filter: drop-shadow(0 0 6px #fff);
+    animation: tail 3s ease-in-out infinite, shooting 3s ease-in-out infinite;
+}
+
+/* Definición de cada estrella fugaz con retrasos y posiciones diferentes */
+.shooting-star:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
+.shooting-star:nth-child(2) { top: 30%; left: 50%; animation-delay: 1.5s; }
+.shooting-star:nth-child(3) { top: 50%; left: 80%; animation-delay: 2.3s; }
+.shooting-star:nth-child(4) { top: 15%; left: 70%; animation-delay: 4s; }
+.shooting-star:nth-child(5) { top: 60%; left: 10%; animation-delay: 0.8s; }
+
+@keyframes tail {
+    0% { width: 0; }
+    30% { width: 100px; }
+    100% { width: 0; }
+}
+
+@keyframes shooting {
+    0% { transform: translateX(0) translateY(0) rotate(45deg); }
+    100% { transform: translateX(-500px) translateY(500px) rotate(45deg); }
+}
+
+/* Asegurar que las secciones tengan fondo transparente para ver las estrellas */
+section, .hero {
+    background: transparent !important;
+}
