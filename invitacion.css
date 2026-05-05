@@ -43,16 +43,69 @@ body {
 section { padding: 100px 20px; max-width: 1100px; margin: 0 auto; text-align: center; }
 .section-title { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--accent-gold); margin-bottom: 40px; }
 
-/* CARD EMOTIVA */
+/* --- CARD EMOTIVA (ESTILO HOJA DE CARTA) --- */
 .emotive-card {
-    background: var(--glass);
-    border: 1px solid rgba(199, 160, 32, 0.2);
-    backdrop-filter: blur(10px);
-    border-radius: 30px;
-    padding: 40px;
-    max-width: 700px;
-    margin: 0 auto 80px;
-    animation: fadeInScale 1.2s ease-out;
+    /* Usamos el mismo color de fondo de la carta interior */
+    background: var(--letter-bg); 
+    
+    /* Borde dorado con un brillo sutil (efecto neón) */
+    border: 2px solid var(--accent-gold);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.2), 
+                0 10px 30px rgba(0, 0, 0, 0.5);
+    
+    /* Bordes redondeados elegantes pero no tan circulares */
+    border-radius: 15px;
+    
+    /* Espaciado y dimensiones */
+    padding: 50px;
+    max-width: 650px;
+    margin: 40px auto 80px;
+    
+    /* Texto: Color oscuro suave para legibilidad sobre fondo claro */
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.8;
+    position: relative;
+    
+    /* Animación de entrada */
+    animation: fadeInScale 1.2s ease-out forwards;
+}
+
+/* Decoración opcional: Una línea dorada elegante arriba */
+.emotive-card::before {
+    content: "";
+    position: absolute;
+    top: 20px;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
+}
+
+/* Tipografía dentro de la card */
+.emotive-card h2 {
+    font-family: 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #aa8a2e;
+    margin-bottom: 20px;
+}
+
+.emotive-card p {
+    font-size: 1.1rem;
+    font-style: italic; /* Le da un toque más emotivo/poético */
+}
+
+/* Animación de entrada */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.9) translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
 }
 
 @keyframes fadeInScale {
@@ -97,15 +150,83 @@ section { padding: 100px 20px; max-width: 1100px; margin: 0 auto; text-align: ce
     transform-origin: top; transition: 0.6s ease-in-out; z-index: 5;
 }
 
+/* CARTA (ESTADO INICIAL) */
+/* CARTA OCULTA DENTRO */
+/* ESTADO INICIAL (METIDA EN EL SOBRE) */
 .letter {
-    position: absolute; bottom: 10px; left: 5%; width: 90%; height: 100%;
-    background: #fdfdfd; border-radius: 5px; z-index: 2;
-    opacity: 0; transition: 0.8s ease-in-out 0.4s; padding: 20px; color: #333;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    /* Centrada horizontalmente y metida verticalmente */
+    transform: translate(-50%, 0); 
+
+    width: 90%;
+    max-width: 340px;
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 25px 20px;
+    box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
+
+    opacity: 0;
+    /* La transición de z-index tiene un retraso para que al cerrar 
+       no se ponga adelante del sobre inmediatamente */
+    transition: transform 0.7s ease-in-out, opacity 0.5s, z-index 0s 0.5s;
+
+    z-index: 1; 
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
 }
 
-.envelope-wrapper.open .flap { transform: rotateX(180deg); z-index: 1; }
-.envelope-wrapper.open .letter { opacity: 1; transform: translateY(-170px); height: 150%; }
+/* CUANDO EL SOBRE SE ABRE */
+.envelope-wrapper.open .letter {
+    opacity: 1;
+    transform: translate(-50%, -150px); 
+    z-index: 10; 
 
+    /* AL ABRIR: 
+       - El movimiento (transform) dura 0.8s y ESPERA 0.4s
+       - La opacidad dura 0.5s y ESPERA 0.4s
+       - El z-index cambia a 10 al instante (0s) para estar al frente */
+    transition: 
+        transform 0.8s ease-in-out 0.4s, 
+        opacity 0.5s ease-in-out 0.4s, 
+        z-index 0s 0s;
+}
+/* ESTILO DEL BOTÓN "GUARDAR" */
+.btn-save {
+    background: var(--envelope-color);
+    color: var(--accent-gold);
+    border: 1px solid var(--accent-gold);
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.btn-save:hover {
+    background: var(--accent-gold);
+    color: var(--envelope-color);
+    box-shadow: 0 0 10px var(--accent-gold);
+}
+/* TAPA DEL SOBRE */
+.envelope-wrapper.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+.flap {
+    z-index: 5;
+}
+
+.envelope-front {
+    z-index: 4;
+}
 /* ITINERARIO */
 .timeline { position: relative; max-width: 800px; margin: auto; }
 .timeline::after {
@@ -205,45 +326,37 @@ section { padding: 100px 20px; max-width: 1100px; margin: 0 auto; text-align: ce
 /* AJUSTE PARA HOJA MÁS GRANDE */
 .envelope-wrapper.open .letter {
     opacity: 1;
-    transform: translateY(-280px); /* Sube más para que se vea toda la hoja */
-    height: 250%; /* Hoja mucho más larga */
-    padding: 30px 15px;
-    background-image: radial-gradient(#fdfdfd 1px, transparent 1px); /* Textura sutil de papel */
-    background-size: 20px 20px;
+
+    transform: translate(-50%, -140px); /* 🔥 sale del sobre */
+
+    z-index: 10; /* 🔥 ahora encima */
+}
+.flap {
+    z-index: 5;
 }
 
-/* DISEÑO INTERNO DE LA CARTA */
-.letter-content {
-    font-family: 'Playfair Display', serif;
+.blessing,
+.parents-grid,
+.phrase,
+.honor-text,
+.date-day-name,
+.date-year {
     color: #555;
-    line-height: 1.4;
 }
-
-.blessing { font-size: 0.7rem; font-style: italic; margin-bottom: 15px; }
-
-.parents-grid {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.65rem;
-    margin-bottom: 20px;
-    gap: 10px;
-}
-
-.parent-side p { margin: 2px 0; }
-
-.nosotros { font-size: 0.8rem; color: var(--accent-gold); }
 
 .main-name {
-    font-size: 1.8rem;
-    color: #444;
-    margin: 10px 0;
-    border-bottom: 1px solid #eee;
+    color: #222;
 }
 
-.phrase { font-size: 0.7rem; font-style: italic; margin: 15px 0; }
+.date-number {
+    color: var(--accent-gold);
+}
 
-.honor-text { font-size: 0.7rem; margin-bottom: 15px; }
-
+/* TAPA DEL SOBRE */
+.envelope-wrapper.open .flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
 /* DISEÑO DE FECHA ESTILO REVISTA */
 .date-display {
     border-top: 1px solid #ccc;
@@ -476,6 +589,11 @@ section { padding: 100px 20px; max-width: 1100px; margin: 0 auto; text-align: ce
     /* Generamos cientos de estrellas con sombras */
     box-shadow: 10vw 20vh #fff, 35vw 45vh #fff, 80vw 15vh #fff, 60vw 70vh #fff, 15vw 90vh #fff, 45vw 10vh #fff, 90vw 80vh #fff, 25vw 35vh #fff, 55vw 55vh #fff;
     box-shadow: 200px 300px #FFF, 500px 100px #FFF, 800px 400px #FFF, 100px 500px #FFF, 900px 200px #FFF, 400px 600px #FFF, 700px 800px #FFF, 300px 700px #FFF;
+    box-shadow: 
+        10vw 20vh #fff, 35vw 45vh #fff, 80vw 15vh #fff, 60vw 70vh #fff,
+        15vw 90vh #fff, 45vw 10vh #fff, 90vw 80vh #fff, 25vw 35vh #fff,
+        5vw 5vh #fff, 95vw 95vh #fff, 50vw 50vh #fff, 75vw 25vh #fff,
+        20vw 80vh #fff, 40vw 30vh #fff, 70vw 60vh #fff, 85vw 10vh #fff;
     animation: twinkle 5s infinite ease-in-out;
 }
 
@@ -517,4 +635,102 @@ section { padding: 100px 20px; max-width: 1100px; margin: 0 auto; text-align: ce
 /* Asegurar que las secciones tengan fondo transparente para ver las estrellas */
 section, .hero {
     background: transparent !important;
+}
+.seccion-portada {
+    position: relative;
+    width: 100%;             /* Ocupa el ancho disponible */
+    max-width: 450px;        /* Mantenemos un ancho elegante */
+    
+    /* Aumentamos la altura para que sea "larga" */
+    height: 80vh;            /* 80% del alto de la pantalla del celular */
+    min-height: 500px;       /* Altura mínima para que nunca se vea pequeña */
+    max-height: 700px;       /* Límite para pantallas muy grandes */
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+    margin: 0 auto 40px;     /* Centrada con espacio abajo */
+
+
+}
+.foto-fondo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.foto-fondo img {
+    width: 100%;
+    height: 150%;
+    /* Esto es lo más importante para que la foto no se estire */
+    object-fit: cover; 
+    object-position: center; /* Centra la cara de la persona */
+    opacity: 0.7;
+}
+
+.texto-encima {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    width: 100%;
+
+    /* ESTE VALOR MUEVE TODO EL BLOQUE (MIS XV + DANNA) HACIA ABAJO */
+    /* Si se ve a la mitad, ponle un valor alto como 100px o 120px */
+    padding-top: 100px; 
+
+    /* Asegúrate de que no tenga un height que lo limite */
+    height: auto; 
+}
+
+.main-title {
+    color: var(--accent-gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 7vw;
+    margin: 0;
+    
+    /* AJUSTE: Añade este padding para empujar la frase hacia abajo */
+    /* Prueba con 15vw o 20vw hasta que la frase se vea completa */
+    padding-top: 8vw; 
+
+    text-shadow: 2px 2px 1px rgba(0,0,0,0.8);
+    letter-spacing: 2px;
+    
+    /* Asegura que ocupe su propia línea */
+    display: block; 
+    width: 100%;
+}
+
+.name-title {
+    color: var(--accent-gold);
+    font-family: 'Playfair Display', serif;
+    font-size: 10vw;
+    
+    /* CAMBIA EL MARGEN SUPERIOR AQUÍ */
+    /* 5vw es un buen inicio, súbelo a 8vw o 10vw si quieres que baje más */
+    margin: 5vw 0 0 0; 
+
+    text-shadow: 2px 2px 15px rgba(0,0,0,0.9);
+    letter-spacing: 6px;
+    font-weight: bold;
+    width: 100%;
+    display: block;
+}
+
+/* --- AJUSTES ESPECÍFICOS PARA PANTALLAS GRANDES --- */
+@media (min-width: 600px) {
+    .main-title {
+        font-size: 2rem;
+    }
+    .name-title {
+        font-size: 3.5rem;
+    }
+}
+@media (max-width: 480px) {
+    .main-title {
+        padding-top: 20vw; /* Ajusta este número según qué tan larga sea tu foto */
+    }
 }
