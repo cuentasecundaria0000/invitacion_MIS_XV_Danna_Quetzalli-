@@ -1,5 +1,5 @@
 // Configura la fecha objetivo aquí
-const eventDate = new Date("June 20, 2026 20:00:00").getTime();
+const eventDate = new Date("July 18, 2026 20:00:00").getTime();
 
 const updateTimer = setInterval(() => {
     const now = new Date().getTime();
@@ -25,3 +25,19 @@ const updateTimer = setInterval(() => {
     document.getElementById("seconds").innerText = s < 10 ? '0' + s : s;
 
 }, 1000);
+function openEnvelope() {
+    const envelope = document.getElementById('envelopeWrapper');
+    envelope.classList.toggle('open');
+}
+// Animación de aparición al hacer scroll
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+        }
+    });
+}, { threshold: 0.2 });
+
+document.querySelectorAll('.timeline-item').forEach(item => {
+    observer.observe(item);
+});
