@@ -1,5 +1,5 @@
 // Configura la fecha objetivo aquí
-const eventDate = new Date("July 18, 2026 20:00:00").getTime();
+const eventDate = new Date("June 20, 2026 20:00:00").getTime();
 
 const updateTimer = setInterval(() => {
     const now = new Date().getTime();
