@@ -1,23 +1,32 @@
 function openEnvelope() {
-    const wrapper = document.getElementById('envelopeWrapper');
-    const body = document.body; // 👈 más seguro que getElementById
+    const envelope = document.getElementById("envelopeWrapper");
+    const audio = document.getElementById("backgroundMusic");
 
     // Evita múltiples clics
-    if (wrapper.classList.contains('open')) return;
+    if (envelope.classList.contains("open")) return;
 
-    // 1. Abrir el sobre
-    wrapper.classList.add('open');
+    // Abre el sobre
+    envelope.classList.add("open");
 
-    // 2. Esperar animación del sobre
+    // Reproducir música
+    audio.play();
+
+    // Redirección después de la animación
     setTimeout(() => {
-        // Desvanecer pantalla
-        body.style.transition = "opacity 0.5s ease";
-        body.style.opacity = "0";
+        window.location.href = "invitacion.html";
+    }, 2200); // ajusta al tiempo de tu animación
+}
+function openEnvelope() {
+    const envelope = document.getElementById("envelopeWrapper");
 
-        // 3. Redirigir
-        setTimeout(() => {
-            window.location.href = "invitacion.html";
-        }, 500);
+    // Evita múltiples clics
+    if (envelope.classList.contains("open")) return;
 
-    }, 2000);
+    // Abrir sobre
+    envelope.classList.add("open");
+
+    // Redirigir (SIN audio aquí)
+    setTimeout(() => {
+        window.location.href = "invitacion.html";
+    }, 2200);
 }
