@@ -18,14 +18,15 @@ body {
     overflow: hidden;
 }
 
-/* 👇 NUEVO CONTENEDOR */
+/* CONTENEDOR */
 .contenedor {
     display: flex;
     flex-direction: column;
     align-items: center;
+    z-index: 10;
 }
 
-/* Contenedor del sobre */
+/* SOBRE */
 .envelope-wrapper {
     position: relative;
     width: 300px;
@@ -37,7 +38,7 @@ body {
     perspective: 1000px;
 }
 
-/* Solapa */
+/* SOLAPA */
 .flap {
     position: absolute;
     top: 0;
@@ -52,25 +53,31 @@ body {
     z-index: 5;
 }
 
-/* Carta */
+/* CARTA (CORREGIDO) */
+/* --- ESTADO INICIAL DE LA CARTA --- */
 .letter {
     position: absolute;
-    bottom: 5px;
+    bottom: 0;
     left: 5%;
-    width: 90%;
-    height: 95%;
+    width: 75%;
+    height: 90%;
     background: var(--letter-bg);
     border-radius: 5px;
-    z-index: 2;
+    padding: 20px;
+    color: #333;
+    text-align: center;
+    
+    /* Capa inicial: Detrás de las caras del sobre (z-index 8 y 9) */
+    z-index: 2; 
     opacity: 0;
-    transform: translateY(8px); 
-    transition: transform 1s ease-in-out 0.6s, opacity 0.3s ease-in-out 0.6s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    
+    /* Animación suave: primero sube, luego se hace visible */
+    transform: translateY(0);
+    transition: transform 0.8s ease-in-out, opacity 0.4s ease-in-out, z-index 0s 0.4s;
 }
 
-/* Caras */
+
+/* CARAS */
 .envelope-front {
     position: absolute;
     width: 0;
@@ -99,7 +106,7 @@ body {
     bottom: 0;
 }
 
-/* Sello */
+/* SELLO */
 .seal {
     position: absolute;
     top: 90px;
@@ -118,15 +125,26 @@ body {
     transition: all 0.4s ease;
 }
 
-/* Animaciones */
+/* ANIMACIONES */
 .envelope-wrapper.open .flap {
     transform: rotateX(180deg);
-    z-index: 1; 
+    z-index: 0; /* 🔥 ya no tapa */
 }
-
+/* --- ESTADO CUANDO EL SOBRE SE ABRE --- */
 .envelope-wrapper.open .letter {
     opacity: 1;
-    transform: translateY(-130px); 
+    
+    /* La carta sube hacia afuera */
+    transform: translateY(-120px); 
+    
+    /* Cambio crítico: Después de 0.4s (mitad de la animación), 
+       pasa al frente de todo para que no se vea cortada */
+    z-index: 12; 
+}
+
+/* EXTRA: animación más natural */
+.letter {
+    transform-origin: bottom center;
 }
 
 .envelope-wrapper.open .seal {
@@ -134,7 +152,7 @@ body {
     transform: translateX(-50%) scale(0);
 }
 
-/* Texto superior */
+/* TEXTO */
 .main-title {
     position: absolute;
     top: -100px;
@@ -163,11 +181,104 @@ body {
     font-size: 0.7rem;
 }
 
-/* 👇 FRASE DEBAJO */
+/* FRASE */
 .mensaje-extra {
     margin-top: 25px;
     text-align: center;
     font-size: 18px;
     color: #fff;
     opacity: 0.9;
+}
+
+/* FONDO */
+.sky-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(ellipse at bottom, #1B2735 0%, #05070a 100%);
+    overflow: hidden;
+}
+
+/* ESTRELLAS */
+.stars {
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    box-shadow:
+        10vw 20vh #fff, 35vw 45vh #fff, 80vw 15vh #fff, 60vw 70vh #fff,
+        15vw 90vh #fff, 45vw 10vh #fff, 90vw 80vh #fff, 25vw 35vh #fff,
+        200px 300px #FFF, 500px 100px #FFF, 800px 400px #FFF;
+        box-shadow: 
+        10vw 20vh #fff, 35vw 45vh #fff, 80vw 15vh #fff, 60vw 70vh #fff,
+        15vw 90vh #fff, 45vw 10vh #fff, 90vw 80vh #fff, 25vw 35vh #fff,
+        5vw 5vh #fff, 95vw 95vh #fff, 50vw 50vh #fff, 75vw 25vh #fff,
+        20vw 80vh #fff, 40vw 30vh #fff, 70vw 60vh #fff, 85vw 10vh #fff;
+    animation: twinkle 5s infinite ease-in-out;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+/* ESTRELLAS FUGACES */
+.shooting-star {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(-45deg, #fff, rgba(0,0,255,0));
+    filter: drop-shadow(0 0 6px #fff);
+    opacity: 0;
+    z-index: -1;
+    animation: shooting 4s infinite ease-in-out;
+}
+
+.shooting-star:nth-child(2) { top: 10%; left: 80%; animation-delay: 1s; }
+.shooting-star:nth-child(3) { top: 30%; left: 40%; animation-delay: 2.5s; }
+.shooting-star:nth-child(4) { top: 50%; left: 90%; animation-delay: 0.5s; }
+
+@keyframes shooting {
+    0% {
+        transform: translateX(200px) translateY(-200px) rotate(45deg);
+        opacity: 1;
+    }
+    20% {
+        transform: translateX(-400px) translateY(400px) rotate(45deg);
+        opacity: 0;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+/* 🌙 LUNAS (SUBIDAS) */
+.moon-sequence {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 50px;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+    top: -70px; /* 🔥 más arriba */
+}
+
+.moon {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.moon-main {
+    font-size: 2.5rem;
+    color: #fff;
+    text-shadow:
+        0 0 10px #fff,
+        0 0 20px #fff,
+        0 0 40px var(--accent-gold),
+        0 0 70px var(--accent-gold);
 }
