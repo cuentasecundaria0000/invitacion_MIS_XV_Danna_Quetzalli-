@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Invitación Lunar - Danna Quetzalli</title>
-    
-    <!-- Fuentes -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <title> Danna Quetzalli</title>
     
     <!-- Vínculo al CSS externo -->
     <link rel="stylesheet" href="invitacion.css">
@@ -24,9 +21,18 @@
     </div>
 </div>
     <header class="hero">
-        <h1>MIS XV</h1>
-        <h2>Danna Quetzalli</h2>
-        <p>Una noche bajo las estrellas</p>
+       <div class="seccion-portada">
+    <div class="foto-fondo">
+        <img src="/img/imagen1.jpg" alt="Danna">
+    </div>
+    
+    <div class="texto-encima">
+        <h1 class="main-title">MIS XV</h1>
+        <h2 class="name-title">DANNA QUITZALLI</h2>
+    </div>
+</div>
+</div>
+
     </header>
 
     <main>
@@ -55,25 +61,26 @@
                 
                 <div class="letter">
     <div class="letter-content">
-        <p class="blessing">Con la bendición de Dios y de nuestros Padres</p>
+        <p class="blessing">Con la bendición de Dios y de mis Padres</p>
         
         <div class="parents-grid">
             <div class="parent-side">
-                <p>Baltazar Rodríguez Ulín</p>
-                <p>Rossana Fuentes Henestroza</p>
+                <p>Ernesto Vinagre Valenzuela</p>
+                <p>Wilma Rosa Vázquez Hernández</p>
             </div>
+            <p>y mis padrinos</p>
             <div class="parent-side">
-                <p>Marco Antonio Vázquez Cerino</p>
-                <p>Ana Lucía Hernández Ramón</p>
+                <p>Asunción Triano Segovia</p>
+                <p>Rosa María Jiménez Arias.</p>
             </div>
         </div>
 
-        <p class="nosotros">Nosotros</p>
-        <h3 class="main-name">Danna Quetzalli</h3>
+        <p class="nosotros">Danna Quetzalli</p>
+        <h3 class="main-name">los invita a celebrar</h3>
         
-        <p class="phrase">"Lo que empezó como una locura,<br>se convirtió en lo mejor de nuestra vida"</p>
+        <p class="phrase">"un momento,<br>se convirtió en lo mejor de mi vida"</p>
         
-        <p class="honor-text">Tenemos el honor de invitarlos a celebrar mi unión el día</p>
+        <p class="honor-text">Tengo el honor de invitarlos a celebrar mis quince primaveras</p>
         
         <div class="date-display">
             <div class="date-month">Julio</div>
@@ -98,10 +105,10 @@
         <div class="info-card">
             <div class="card-icon">📍</div>
             <h3>Recepción</h3>
-            <p><strong>Reserva "Cielo Estrellado"</strong></p>
-            <p>Valle de la Luna, 404</p>
-            <p>La celebración se llevará a cabo en el jardín principal bajo el domo de cristal.</p>
-            <a href="https://maps.google.com" target="_blank" class="map-btn">Ver ubicación</a>
+            <p><strong>"Hermeregildo galeana"</strong></p>
+            <p>segunda sección</p>
+            <p>La celebración se llevará a cabo en el jardín principal.</p>
+            <a href="https://maps.app.goo.gl/NXQCMtGfAeUFkFna6" target="_blank" class="map-btn">Ver ubicación</a>
         </div>
 
         <!-- Card Código de Vestimenta -->
@@ -123,15 +130,15 @@
             <div class="timeline">
                 <div class="timeline-item left">
                     <h4>19:00 - Bienvenida</h4>
-                    <p>Cócteles de cortesía bajo el crepúsculo.</p>
+                    <p>inicio del festejo.</p>
                 </div>
                 <div class="timeline-item right">
                     <h4>21:00 - Cena</h4>
-                    <p>Banquete gourmet de tres tiempos.</p>
+                    <p>debustacion de platillo principal.</p>
                 </div>
                 <div class="timeline-item left">
                     <h4>22:30 - El Brindis</h4>
-                    <p>Palabras especiales y deseos cósmicos.</p>
+                    <p>Palabras especiales y deseos.</p>
                 </div>
                 <div class="timeline-item right">
                     <h4>23:00 - Fiesta</h4>
@@ -144,19 +151,15 @@
     <h2 class="section-title">Sugerencia de Regalos</h2>
     <div class="gifts-container">
         <div class="gift-card">
-            <div class="gift-icon">🎁</div>
+            <div class="gift-icon">💌</div>
             <h3>Lluvia de Sobres</h3>
             <p>Tu presencia es mi mejor regalo, pero si deseas tener un detalle conmigo, te agradecería que fuera en efectivo mediante lluvia de sobres el día del evento.</p>
         </div>
         
         <div class="gift-card">
-            <div class="gift-icon">💳</div>
-            <h3>Transferencia</h3>
-            <p>Si lo prefieres, también puedes realizar una transferencia bancaria:</p>
-            <div class="bank-details">
-                <p><strong>Banco:</strong> Nombre del Banco</p>
-                <p><strong>CLABE:</strong> 000 000 000 000 000 000</p>
-                <p><strong>Titular:</strong> Danna Quetzalli</p>
+            <div class="gift-icon">🎁</div>
+            <h3>Regalos</h3>
+            <p>O si bien prefieres, también puedes darme un obsequio que será muy bien recibido</p>
             </div>
         </div>
     </div>
@@ -175,9 +178,20 @@
         <div class="final-msg">
             ¡TE ESPERAMOS!
         </div>
+        <audio id="backgroundMusic" autoplay loop>
+    <source src="img/Luna.mp3" type="audio/mpeg">
+</audio>
+</audio>
+
     </main>
 
     <script>
+        document.addEventListener("click", () => {
+    const music = document.getElementById("backgroundMusic");
+    if (music.paused) {
+        music.play().catch(() => {});
+    }
+}, { once: true });
         // Lógica del sobre
         function openEnvelope() {
             document.getElementById('envelopeWrapper').classList.toggle('open');
