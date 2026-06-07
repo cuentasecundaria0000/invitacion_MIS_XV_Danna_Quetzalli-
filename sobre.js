@@ -14,7 +14,7 @@ function openEnvelope() {
     // Redirección después de la animación
     setTimeout(() => {
         window.location.href = "invitacion.html";
-    }, 2200); // ajusta al tiempo de tu animación
+    }, 7000); // ajusta al tiempo de tu animación
 }
 function openEnvelope() {
     const envelope = document.getElementById("envelopeWrapper");
