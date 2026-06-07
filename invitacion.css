@@ -10,23 +10,47 @@
     --envelope-light: #1f2647;
     --flap-color: #252a41;
     --letter-bg: #ffffff;
+
+    /* Tamaños fluidos con clamp */
+    --fs-xl:    clamp(2rem,    6vw,  3.5rem);
+    --fs-lg:    clamp(1.6rem,  4vw,  2.8rem);
+    --fs-md:    clamp(1rem,    2.5vw, 1.8rem);
+    --fs-sm:    clamp(0.8rem,  1.8vw, 1rem);
+    --fs-xs:    clamp(0.7rem,  1.5vw, 0.85rem);
+
+    --space-xl: clamp(40px, 8vw, 100px);
+    --space-lg: clamp(24px, 5vw,  60px);
+    --space-md: clamp(16px, 3vw,  40px);
+    --space-sm: clamp(10px, 2vw,  20px);
 }
 
-/* Reset básico */
-* {
+/* ===============================
+   RESET Y BASE
+================================ */
+*, *::before, *::after {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* Estilo general de la página */
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
 body {
     background-color: var(--space-black);
     color: var(--moon-white);
     font-family: 'Montserrat', sans-serif;
     overflow-x: hidden;
-    scroll-behavior: smooth;
     line-height: 1.6;
+    -webkit-text-size-adjust: 100%; /* Evita zoom en iOS */
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 /* ===============================
@@ -40,7 +64,6 @@ body {
     overflow: hidden;
 }
 
-/* Estrellas fijas */
 .stars {
     width: 1px;
     height: 1px;
@@ -48,160 +71,107 @@ body {
     box-shadow:
         10vw 20vh #fff, 35vw 45vh #fff, 80vw 15vh #fff,
         60vw 70vh #fff, 15vw 90vh #fff, 45vw 10vh #fff,
-        90vw 80vh #fff, 25vw 35vh #fff, 5vw 5vh #fff,
+        90vw 80vh #fff, 25vw 35vh #fff, 5vw  5vh  #fff,
         95vw 95vh #fff, 50vw 50vh #fff, 75vw 25vh #fff;
     animation: twinkle 5s infinite ease-in-out;
 }
 
-/* Parpadeo de estrellas */
 @keyframes twinkle {
     0%, 100% { opacity: 0.6; }
-    50% { opacity: 1; }
+    50%       { opacity: 1;   }
 }
 
 /* Estrellas fugaces */
-/* Contenedor padre debe tener position: relative */
-.invitacion-container {
-    position: relative;
-    overflow: hidden; /* Para que las estrellas no se salgan del marco */
-    background: #050505; /* Color base oscuro */
-}
-
 .shooting-star {
     position: absolute;
     height: 2px;
-    width: 120px;
-
-   background: linear-gradient(
-    90deg,
-    rgba(255,255,255,0) 0%,
-    rgba(255,255,255,.3) 40%,
-    rgba(255,255,255,.8) 80%,
-    rgba(255,255,255,1) 100%
-);
+    width: clamp(60px, 10vw, 120px);
+    background: linear-gradient(
+        90deg,
+        rgba(255,255,255,0)   0%,
+        rgba(255,255,255,.3) 40%,
+        rgba(255,255,255,.8) 80%,
+        rgba(255,255,255,1) 100%
+    );
     border-radius: 999px;
-    filter: drop-shadow(0 0 8px #ffffff);
-
+    filter: drop-shadow(0 0 8px #fff);
     animation: shooting 3s linear infinite;
-
     z-index: 1;
 }
 
-/* CABEZA DE LA ESTRELLA */
 .shooting-star::after {
     content: "";
     position: absolute;
-
     right: 0;
-    left: auto;
-
     top: 50%;
-
     width: 8px;
     height: 8px;
-
     background: #fff;
     border-radius: 50%;
-
     transform: translate(50%, -50%);
-
-    box-shadow:
-        0 0 10px #fff,
-        0 0 20px #fff,
-        0 0 40px rgba(255,255,255,.8);
+    box-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 40px rgba(255,255,255,.8);
 }
 
-/* Variaciones para naturalidad */
-.shooting-star:nth-child(1) { top: 5%; left: 80%; animation-duration: 2.5s; }
-.shooting-star:nth-child(2) { top: 20%; left: 95%; animation-delay: 1.5s; }
+.shooting-star:nth-child(1) { top: 5%;  left: 80%; animation-duration: 2.5s; }
+.shooting-star:nth-child(2) { top: 20%; left: 95%; animation-delay: 1.5s;   }
 .shooting-star:nth-child(3) { top: 40%; left: 100%; animation-duration: 3.5s; animation-delay: 0.5s; }
 
 @keyframes shooting {
-
-    0% {
-        opacity: 0;
-        transform:
-            translate(0,0)
-            rotate(35deg)
-            scaleX(0);
-    }
-
-    5% {
-        opacity: 1;
-    }
-
-    15% {
-        transform:
-            translate(150px,150px)
-            rotate(35deg)
-            scaleX(1);
-    }
-
-    100% {
-        opacity: 0;
-        transform:
-            translate(700px,700px)
-            rotate(35deg)
-            scaleX(0);
-    }
+    0%   { opacity: 0; transform: translate(0,0)           rotate(35deg) scaleX(0); }
+    5%   { opacity: 1; }
+    15%  {             transform: translate(150px,150px)   rotate(35deg) scaleX(1); }
+    100% { opacity: 0; transform: translate(700px,700px)   rotate(35deg) scaleX(0); }
 }
+
 /* ===============================
    PORTADA PRINCIPAL
 ================================ */
 .hero {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100svh; /* svh: mejor en móviles que vh */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-/* Contenedor de la foto de portada */
 .seccion-portada {
     position: relative;
-    width: 100%;
-    max-width: 450px;
-    height: 80vh;
-    min-height: 500px;
-    max-height: 700px;
+    width: min(90%, 450px);
+    height: clamp(400px, 75svh, 700px);
     margin: 0 auto 40px;
     overflow: visible;
 }
 
-/* Contenedor de la imagen */
 .foto-fondo {
     position: absolute;
     inset: 0;
     z-index: 1;
 }
 
-/* Imagen de quinceañera completa */
 .foto-fondo img {
     width: 100%;
     height: 100%;
     object-fit: contain;
     object-position: center;
     opacity: 0.85;
-    display: block;
 }
 
 /* ===============================
    SECCIONES GENERALES
 ================================ */
 section {
-    padding: 100px 20px;
+    padding: var(--space-xl) var(--space-md);
     max-width: 1100px;
     margin: 0 auto;
     text-align: center;
 }
 
-/* Títulos de secciones */
 .section-title {
     font-family: 'Playfair Display', serif;
-    font-size: 2.8rem;
+    font-size: var(--fs-lg);
     color: var(--accent-gold);
-    margin-bottom: 40px;
+    margin-bottom: var(--space-md);
 }
 
 /* ===============================
@@ -210,20 +180,19 @@ section {
 .emotive-card {
     background: rgba(255,255,255,0.05);
     border: 2px solid var(--accent-gold);
-    box-shadow: 0 0 20px rgba(199,160,32,0.2),
-                0 10px 30px rgba(0,0,0,0.5);
+    box-shadow: 0 0 20px rgba(199,160,32,0.2), 0 10px 30px rgba(0,0,0,0.5);
     border-radius: 15px;
-    padding: 50px;
+    padding: clamp(24px, 5vw, 50px);
     max-width: 650px;
-    margin: 40px auto 80px;
-    color: #ffffff;
+    width: 100%;
+    margin: var(--space-md) auto var(--space-xl);
+    color: #fff;
     text-align: center;
     line-height: 1.8;
     position: relative;
     animation: fadeInScale 1.2s ease-out forwards;
 }
 
-/* Línea decorativa superior */
 .emotive-card::before {
     content: "";
     position: absolute;
@@ -234,83 +203,82 @@ section {
     background: linear-gradient(to right, transparent, var(--accent-gold), transparent);
 }
 
-/* Texto de la card emotiva */
 .emotive-card p {
-    font-size: 1.1rem;
+    font-size: var(--fs-sm);
     font-style: italic;
 }
 
-/* Animación de aparición */
 @keyframes fadeInScale {
-    from {
-        opacity: 0;
-        transform: scale(0.9) translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: scale(1) translateY(0);
-    }
+    from { opacity: 0; transform: scale(0.9) translateY(20px); }
+    to   { opacity: 1; transform: scale(1)   translateY(0);    }
 }
 
 /* ===============================
    SOBRE INTERACTIVO
 ================================ */
+:root {
+    --env-w: clamp(280px, 85vw, 340px);
+    --env-h: calc(var(--env-w) * 0.68);
+    --flap-half: calc(var(--env-w) / 2);
+    --flap-h: calc(var(--env-h) * 0.55);
+    --front-h: calc(var(--env-h) * 0.5);
+    --bottom-h: calc(var(--env-h) * 0.55);
+}
+
 .envelope-wrapper {
     position: relative;
-    width: 320px;
-    height: 220px;
+    width: var(--env-w);
+    height: var(--env-h);
     background-color: var(--envelope-color);
-    margin: 150px auto 50px;
+    margin: clamp(100px, 20vw, 150px) auto 50px;
     border-radius: 0 0 10px 10px;
     cursor: pointer;
     perspective: 1000px;
 }
 
-/* Título del sobre */
 .sobre-title {
     position: absolute;
-    top: -100px;
+    top: clamp(-90px, -15vw, -100px);
     width: 100%;
     text-align: center;
     color: var(--accent-gold);
     font-weight: bold;
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 6vw, 2.5rem);
     animation: pulse-grow 2s infinite ease-in-out;
 }
 
-/* Texto de instrucción */
 .instruction {
     position: absolute;
-    top: -40px;
+    top: clamp(-36px, -6vw, -40px);
     width: 100%;
     text-align: center;
-    font-size: 0.8rem;
+    font-size: var(--fs-xs);
     text-transform: uppercase;
     letter-spacing: 2px;
     animation: blink 2s infinite;
 }
 
-/* Solapa superior del sobre */
+/* Solapa */
 .flap {
     position: absolute;
     top: 0;
     left: 0;
-    border-left: 160px solid transparent;
-    border-right: 160px solid transparent;
-    border-top: 120px solid var(--flap-color);
+    border-left:  var(--flap-half) solid transparent;
+    border-right: var(--flap-half) solid transparent;
+    border-top:   var(--flap-h)   solid var(--flap-color);
     transform-origin: top;
     transition: transform 0.6s ease-in-out;
     z-index: 5;
 }
 
-/* Sello del sobre */
+/* Sello */
 .seal {
     position: absolute;
-    top: 85px;
+    top: calc(var(--flap-h) * 0.7);
     left: 50%;
     transform: translateX(-50%);
-    width: 55px;
-    height: 55px;
+    width: clamp(40px, 10vw, 55px);
+    height: clamp(40px, 10vw, 55px);
     background: radial-gradient(circle, var(--accent-gold), #8c6f19);
     border-radius: 50%;
     z-index: 6;
@@ -318,80 +286,69 @@ section {
     justify-content: center;
     align-items: center;
     color: #111;
-    font-size: 1.5rem;
+    font-size: clamp(1rem, 3vw, 1.5rem);
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     transition: all 0.4s ease;
 }
 
-/* Carta oculta dentro del sobre */
+/* Carta */
 .letter {
     position: absolute;
     bottom: -20px;
     left: 50%;
     transform: translate(-50%, 0);
-    width: 90%;
+    width: 92%;
     max-width: 340px;
     background: var(--letter-bg);
     border-radius: 12px;
-    padding: 25px 20px;
+    padding: clamp(16px, 4vw, 25px) clamp(12px, 3vw, 20px);
     box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
     opacity: 0;
     z-index: 1;
     text-align: center;
     transition:
         transform 0.8s ease-in-out 0.4s,
-        opacity 0.5s ease-in-out 0.4s,
-        z-index 0s 0.4s;
+        opacity   0.5s ease-in-out 0.4s,
+        z-index   0s              0.4s;
 }
 
-/* Carta cuando el sobre se abre */
 .envelope-wrapper.open .letter {
     opacity: 1;
-    transform: translate(-50%, -170px);
+    transform: translate(-50%, clamp(-140px, -30vw, -170px));
     z-index: 10;
 }
 
-/* Solapa abierta */
 .envelope-wrapper.open .flap {
     transform: rotateX(180deg);
     z-index: 1;
 }
 
-/* El sello desaparece al abrir */
 .envelope-wrapper.open .seal {
     opacity: 0;
     transform: translateX(-50%) scale(0);
 }
 
-/* Caras frontales del sobre */
-.envelope-front {
-    position: absolute;
-    width: 0;
-    height: 0;
-    z-index: 4;
-}
+/* Caras del sobre */
+.envelope-front { position: absolute; width: 0; height: 0; z-index: 4; }
 
-/* Cara izquierda del sobre */
 .envelope-front-left {
-    border-left: 160px solid var(--envelope-light);
-    border-top: 110px solid transparent;
-    border-bottom: 110px solid transparent;
+    border-left:   var(--flap-half) solid var(--envelope-light);
+    border-top:    var(--front-h)   solid transparent;
+    border-bottom: var(--front-h)   solid transparent;
     left: 0;
 }
 
-/* Cara derecha del sobre */
 .envelope-front-right {
-    border-right: 160px solid var(--envelope-light);
-    border-top: 110px solid transparent;
-    border-bottom: 110px solid transparent;
+    border-right:  var(--flap-half) solid var(--envelope-light);
+    border-top:    var(--front-h)   solid transparent;
+    border-bottom: var(--front-h)   solid transparent;
     right: 0;
 }
 
-/* Parte inferior del sobre */
 .envelope-front-bottom {
-    border-bottom: 120px solid var(--envelope-color);
-    border-left: 160px solid transparent;
-    border-right: 160px solid transparent;
+    border-bottom: var(--bottom-h) solid var(--envelope-color);
+    border-left:   var(--flap-half) solid transparent;
+    border-right:  var(--flap-half) solid transparent;
     bottom: 0;
 }
 
@@ -400,50 +357,16 @@ section {
 ================================ */
 .letter-content {
     color: #555;
-    font-size: 0.8rem;
+    font-size: clamp(0.65rem, 2vw, 0.8rem);
 }
 
-/* Bendición */
-.blessing {
-    color: #555;
-    margin-bottom: 10px;
-}
+.blessing   { color: #555; margin-bottom: 10px; }
+.parents-grid { color: #555; font-size: clamp(0.6rem, 1.8vw, 0.75rem); margin-bottom: 10px; }
+.nosotros   { color: var(--accent-gold); font-weight: bold; margin: 10px 0; }
+.main-name  { color: #222; font-size: clamp(0.85rem, 2.5vw, 1rem); margin: 8px 0; }
+.phrase     { color: #555; font-style: italic; margin: 10px 0; }
+.honor-text { color: #555; font-size: clamp(0.65rem, 1.8vw, 0.8rem); }
 
-/* Padres y padrinos */
-.parents-grid {
-    color: #555;
-    font-size: 0.75rem;
-    margin-bottom: 10px;
-}
-
-/* Nombre dentro de la carta */
-.nosotros {
-    color: var(--accent-gold);
-    font-weight: bold;
-    margin: 10px 0;
-}
-
-/* Texto principal */
-.main-name {
-    color: #222;
-    font-size: 1rem;
-    margin: 8px 0;
-}
-
-/* Frase */
-.phrase {
-    color: #555;
-    font-style: italic;
-    margin: 10px 0;
-}
-
-/* Texto de honor */
-.honor-text {
-    color: #555;
-    font-size: 0.8rem;
-}
-
-/* Diseño de la fecha */
 .date-display {
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
@@ -453,15 +376,13 @@ section {
     margin-top: 10px;
 }
 
-/* Mes */
 .date-month {
     text-transform: uppercase;
     letter-spacing: 3px;
-    font-size: 0.8rem;
+    font-size: clamp(0.65rem, 2vw, 0.8rem);
     color: #555;
 }
 
-/* Fila de fecha */
 .date-row {
     display: flex;
     justify-content: center;
@@ -469,17 +390,15 @@ section {
     gap: 15px;
 }
 
-/* Número del día */
 .date-number {
-    font-size: 1.5rem;
+    font-size: clamp(1.2rem, 4vw, 1.5rem);
     font-weight: bold;
     color: var(--accent-gold);
 }
 
-/* Día y año */
 .date-day-name,
 .date-year {
-    font-size: 0.7rem;
+    font-size: clamp(0.6rem, 1.8vw, 0.7rem);
     color: #555;
     border-bottom: 1px solid #aaa;
 }
@@ -488,73 +407,64 @@ section {
    ANIMACIONES DEL SOBRE
 ================================ */
 @keyframes pulse-grow {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    0%, 100% { transform: scale(1);   }
+    50%       { transform: scale(1.1); }
 }
 
 @keyframes blink {
     0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
+    50%       { opacity: 1;   }
 }
 
 /* ===============================
-   CARDS DE RECEPCIÓN Y VESTIMENTA
+   CARDS INFO (RECEPCIÓN / VESTIMENTA)
 ================================ */
 .info-cards-section {
-    padding: 60px 20px;
+    padding: var(--space-lg) var(--space-md);
     width: 100%;
 }
 
-/* Contenedor de cards */
 .info-container {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+    gap: var(--space-md);
     max-width: 1000px;
     margin: 0 auto;
 }
 
-/* Card individual */
 .info-card {
     background: var(--glass);
     border: 1px solid rgba(199,160,32,0.3);
     border-radius: 25px;
-    padding: 40px 30px;
-    flex: 1;
-    min-width: 320px;
+    padding: clamp(24px, 5vw, 40px) clamp(16px, 4vw, 30px);
     text-align: center;
     backdrop-filter: blur(12px);
     transition: all 0.4s ease;
 }
 
-/* Efecto hover */
 .info-card:hover {
     transform: translateY(-10px);
     border-color: var(--accent-gold);
 }
 
-/* Iconos */
 .card-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
+    font-size: clamp(2rem, 5vw, 3rem);
+    margin-bottom: var(--space-sm);
 }
 
-/* Título de card */
 .info-card h3 {
     font-family: 'Playfair Display', serif;
     color: var(--accent-gold);
-    font-size: 1.8rem;
+    font-size: var(--fs-md);
     margin-bottom: 15px;
 }
 
-/* Texto de card */
 .info-card p {
     margin-bottom: 10px;
     color: var(--moon-white);
+    font-size: var(--fs-sm);
 }
 
-/* Botón de mapa */
 .map-btn {
     display: inline-block;
     margin-top: 20px;
@@ -563,20 +473,20 @@ section {
     color: var(--accent-gold);
     text-decoration: none;
     border-radius: 50px;
-    font-size: 0.8rem;
+    font-size: var(--fs-xs);
     text-transform: uppercase;
     transition: 0.3s;
 }
 
 .map-btn:hover {
     background: var(--accent-gold);
-    color: white;
+    color: #fff;
 }
 
-/* Etiquetas de vestimenta */
 .dress-code-tags {
     display: flex;
     justify-content: center;
+    flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
 }
@@ -585,10 +495,47 @@ section {
     background: rgba(199,160,32,0.2);
     padding: 5px 15px;
     border-radius: 15px;
-    font-size: 0.75rem;
+    font-size: var(--fs-xs);
     color: var(--accent-gold);
     border: 1px solid var(--accent-gold);
 }
+
+/* ===============================
+   CARRUSEL
+================================ */
+.carousel-xv {
+    width: 100%;
+    padding: var(--space-md) 0;
+    overflow: hidden;
+}
+
+.carousel-track {
+    position: relative;
+    width: 100%;
+    height: clamp(240px, 50vw, 380px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.carousel-img {
+    position: absolute;
+    width:  clamp(100px, 22vw, 190px);
+    height: clamp(160px, 34vw, 290px);
+    object-fit: cover;
+    border-radius: clamp(12px, 3vw, 22px);
+    transition: all 0.8s ease;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.45);
+    opacity: 0;
+}
+
+/* Posiciones fluidas usando clamp */
+.carousel-img.pos0 { transform: translateX(clamp(-220px,-42vw,-430px)) scale(0.72); opacity: 0.45; z-index: 1; }
+.carousel-img.pos1 { transform: translateX(clamp(-140px,-26vw,-270px)) scale(0.85); opacity: 0.7;  z-index: 2; }
+.carousel-img.pos2 { transform: translateX(clamp(-55px, -10vw,-110px)) scale(1);    opacity: 0.9;  z-index: 3; }
+.carousel-img.pos3 { transform: translateX(clamp( 45px,   9vw,  90px)) scale(1.15); opacity: 1;    z-index: 4; }
+.carousel-img.pos4 { transform: translateX(clamp(140px,  26vw, 270px)) scale(0.85); opacity: 0.7;  z-index: 2; }
+.carousel-img.pos5 { transform: translateX(clamp(220px,  42vw, 430px)) scale(0.72); opacity: 0.45; z-index: 1; }
 
 /* ===============================
    ITINERARIO
@@ -596,10 +543,9 @@ section {
 .timeline {
     position: relative;
     max-width: 800px;
-    margin: auto;
+    margin: 0 auto;
 }
 
-/* Línea central */
 .timeline::after {
     content: '';
     position: absolute;
@@ -610,9 +556,8 @@ section {
     left: 50%;
 }
 
-/* Elementos del itinerario */
 .timeline-item {
-    padding: 20px 40px;
+    padding: var(--space-sm) clamp(20px, 5vw, 40px);
     position: relative;
     width: 50%;
     opacity: 0;
@@ -620,75 +565,63 @@ section {
     transition: all 0.8s ease-out;
 }
 
-/* Aparece al hacer scroll */
-.timeline-item.visible {
-    opacity: 1;
-    transform: translateY(0);
+.timeline-item.visible { opacity: 1; transform: translateY(0); }
+.timeline-item.left    { left: 0;   text-align: right; }
+.timeline-item.right   { left: 50%; text-align: left;  }
+
+.timeline-item h4 {
+    font-size: var(--fs-sm);
+    color: var(--accent-gold);
+    margin-bottom: 6px;
 }
 
-/* Elementos izquierda */
-.timeline-item.left {
-    left: 0;
-    text-align: right;
-}
-
-/* Elementos derecha */
-.timeline-item.right {
-    left: 50%;
-    text-align: left;
+.timeline-item p {
+    font-size: var(--fs-xs);
 }
 
 /* ===============================
    REGALOS
 ================================ */
 .gifts-section {
-    padding: 80px 20px;
+    padding: var(--space-xl) var(--space-md);
     background: linear-gradient(to bottom, transparent, rgba(199,160,32,0.05));
 }
 
-/* Contenedor de regalos */
 .gifts-container {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: var(--space-md);
     max-width: 900px;
     margin: 0 auto;
 }
 
-/* Card de regalo */
 .gift-card {
     background: var(--glass);
     border: 1px solid rgba(199,160,32,0.2);
-    padding: 30px;
+    padding: clamp(20px, 4vw, 30px);
     border-radius: 20px;
-    flex: 1;
-    min-width: 300px;
     transition: transform 0.3s ease;
 }
 
-/* Hover de regalo */
 .gift-card:hover {
     transform: translateY(-5px);
     border-color: var(--accent-gold);
 }
 
-/* Icono regalo */
 .gift-icon {
-    font-size: 2.5rem;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
     margin-bottom: 15px;
 }
 
-/* Título regalo */
 .gift-card h3 {
     font-family: 'Playfair Display', serif;
     color: var(--accent-gold);
     margin-bottom: 15px;
+    font-size: var(--fs-md);
 }
 
-/* Texto regalo */
 .gift-card p {
-    font-size: 0.95rem;
+    font-size: var(--fs-sm);
     color: var(--moon-white);
 }
 
@@ -698,32 +631,30 @@ section {
 .countdown {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: clamp(10px, 3vw, 20px);
     flex-wrap: wrap;
 }
 
-/* Cajas del contador */
 .time-box {
     background: var(--glass);
-    padding: 20px;
+    padding: clamp(12px, 3vw, 20px);
     border-radius: 15px;
     border: 1px solid var(--accent-gold);
-    min-width: 90px;
+    min-width: clamp(70px, 18vw, 90px);
     text-align: center;
     animation: floating 3s ease-in-out infinite;
+    font-size: var(--fs-xs);
 }
 
-/* Números del contador */
 .time-box span {
     display: block;
-    font-size: 2rem;
+    font-size: clamp(1.4rem, 5vw, 2rem);
     color: var(--accent-gold);
 }
 
-/* Animación flotante */
 @keyframes floating {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    0%, 100% { transform: translateY(0);    }
+    50%       { transform: translateY(-12px); }
 }
 
 /* ===============================
@@ -731,191 +662,74 @@ section {
 ================================ */
 .final-msg {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 8vw, 3.5rem);
+    font-size: var(--fs-xl);
     color: var(--accent-gold);
-    padding: 80px 20px;
+    padding: var(--space-xl) var(--space-md);
     text-align: center;
 }
 
 /* ===============================
-   RESPONSIVE
+   RESPONSIVE — TABLET (≤ 900px)
 ================================ */
-@media (max-width: 768px) {
-    section {
-        padding: 70px 20px;
-    }
-
-    .texto-encima {
-        top: 360px;
-    }
-
-    .portada-title {
-        font-size: 2rem;
-    }
-
-    .name-title {
-        font-size: 2.8rem;
-    }
-
-    .timeline::after {
-        left: 31px;
-    }
+@media (max-width: 900px) {
+    .timeline::after { left: 28px; }
 
     .timeline-item {
         width: 100%;
         text-align: left !important;
-        padding-left: 70px;
-        padding-right: 20px;
+        padding-left: 60px;
+        padding-right: 16px;
         left: 0 !important;
     }
-
-    .info-container,
-    .gifts-container {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .info-card,
-    .gift-card {
-        width: 100%;
-        min-width: unset;
-    }
 }
 
-@media (max-width: 480px) {
-    .seccion-portada {
-        max-width: 95%;
-    }
-
-    .texto-encima {
-        top: 340px;
-    }
-
-    .portada-title {
-        font-size: 1.8rem;
-    }
-
-    .name-title {
-        font-size: 2.2rem;
-        letter-spacing: 3px;
-    }
-
-    .envelope-wrapper {
-        width: 300px;
-        height: 200px;
-    }
-
-    .flap {
-        border-left: 150px solid transparent;
-        border-right: 150px solid transparent;
-    }
-
-    .envelope-front-left {
-        border-left: 150px solid var(--envelope-light);
-    }
-
-    .envelope-front-right {
-        border-right: 150px solid var(--envelope-light);
-    }
-
-    .envelope-front-bottom {
-        border-left: 150px solid transparent;
-        border-right: 150px solid transparent;
-    }
-}
-.carousel-xv {
-    width: 100%;
-    padding: 40px 0;
-    overflow: hidden;
-}
-
-.carousel-track {
-    position: relative;
-    width: 100%;
-    height: 380px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.carousel-img {
-    position: absolute;
-    width: 190px;
-    height: 290px;
-    object-fit: cover;
-    border-radius: 22px;
-    transition: all 0.8s ease;
-    box-shadow: 0 15px 35px rgba(0,0,0,0.45);
-    opacity: 0;
-}
-
-.carousel-img.pos0 {
-    transform: translateX(-430px) scale(0.72);
-    opacity: 0.45;
-    z-index: 1;
-}
-
-.carousel-img.pos1 {
-    transform: translateX(-270px) scale(0.85);
-    opacity: 0.7;
-    z-index: 2;
-}
-
-.carousel-img.pos2 {
-    transform: translateX(-110px) scale(1);
-    opacity: 0.9;
-    z-index: 3;
-}
-
-.carousel-img.pos3 {
-    transform: translateX(90px) scale(1.15);
-    opacity: 1;
-    z-index: 4;
-}
-
-.carousel-img.pos4 {
-    transform: translateX(270px) scale(0.85);
-    opacity: 0.7;
-    z-index: 2;
-}
-
-.carousel-img.pos5 {
-    transform: translateX(430px) scale(0.72);
-    opacity: 0.45;
-    z-index: 1;
-}
-
+/* ===============================
+   RESPONSIVE — MÓVIL (≤ 600px)
+================================ */
 @media (max-width: 600px) {
-    .carousel-track {
-        height: 300px;
+    /* El carrusel ya es fluido con clamp, sin override extra */
+
+    .emotive-card { padding: 24px 16px; }
+
+    .info-card { border-radius: 18px; }
+
+    .timeline::after { left: 20px; }
+
+    .timeline-item {
+        padding-left: 44px;
+        padding-right: 12px;
     }
 
-    .carousel-img {
-        width: 135px;
-        height: 210px;
+    .dress-code-tags { flex-direction: column; align-items: center; }
+}
+
+/* ===============================
+   RESPONSIVE — PANTALLA MUY PEQUEÑA (≤ 360px)
+================================ */
+@media (max-width: 360px) {
+    .section-title { font-size: 1.4rem; }
+
+    .time-box { min-width: 60px; padding: 10px 8px; }
+
+    .envelope-wrapper { margin-top: 80px; }
+}
+
+/* ===============================
+   RESPONSIVE — TABLET GRANDE / LAPTOP (≥ 1024px)
+================================ */
+@media (min-width: 1024px) {
+    .info-container {
+        grid-template-columns: repeat(2, 1fr);
     }
 
-    .carousel-img.pos0 {
-        transform: translateX(-245px) scale(0.6);
+    .gifts-container {
+        grid-template-columns: repeat(2, 1fr);
     }
+}
 
-    .carousel-img.pos1 {
-        transform: translateX(-165px) scale(0.72);
-    }
-
-    .carousel-img.pos2 {
-        transform: translateX(-80px) scale(0.88);
-    }
-
-    .carousel-img.pos3 {
-        transform: translateX(0) scale(1.08);
-    }
-
-    .carousel-img.pos4 {
-        transform: translateX(80px) scale(0.88);
-    }
-
-    .carousel-img.pos5 {
-        transform: translateX(165px) scale(0.72);
-    }
+/* ===============================
+   RESPONSIVE — ESCRITORIO GRANDE (≥ 1440px)
+================================ */
+@media (min-width: 1440px) {
+    section { max-width: 1300px; }
 }
