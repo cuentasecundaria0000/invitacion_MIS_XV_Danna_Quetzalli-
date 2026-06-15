@@ -168,9 +168,13 @@ section {
 }
 
 .section-title {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
     font-size: var(--fs-lg);
     color: var(--accent-gold);
+     text-shadow:
+        0 0 10px rgba(212,175,55,.4),
+        0 0 20px rgba(212,175,55,.2);
     margin-bottom: var(--space-md);
 }
 
@@ -241,10 +245,21 @@ section {
     top: clamp(-90px, -15vw, -100px);
     width: 100%;
     text-align: center;
+
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+
     color: var(--accent-gold);
-    font-weight: bold;
+    font-weight: 600;
+
     font-size: clamp(1.8rem, 6vw, 2.5rem);
-    animation: pulse-grow 2s infinite ease-in-out;
+
+    letter-spacing: 2px;
+
+    text-shadow:
+        0 0 10px rgba(212,175,55,.4),
+        0 0 20px rgba(212,175,55,.2);
+
 }
 
 .instruction {
@@ -363,7 +378,6 @@ section {
 .blessing   { color: #555; margin-bottom: 10px; }
 .parents-grid { color: #555; font-size: clamp(0.6rem, 1.8vw, 0.75rem); margin-bottom: 10px; }
 .nosotros   { color: var(--accent-gold); font-weight: bold; margin: 10px 0; }
-.main-name  { color: #222; font-size: clamp(0.85rem, 2.5vw, 1rem); margin: 8px 0; }
 .phrase     { color: #555; font-style: italic; margin: 10px 0; }
 .honor-text { color: #555; font-size: clamp(0.65rem, 1.8vw, 0.8rem); }
 
@@ -584,14 +598,19 @@ section {
 ================================ */
 .gifts-section {
     padding: var(--space-xl) var(--space-md);
-    background: linear-gradient(to bottom, transparent, rgba(199,160,32,0.05));
+
+    background:
+        radial-gradient(
+            ellipse at center,
+            rgba(199,160,32,0.08) 0%,
+            rgba(199,160,32,0.04) 40%,
+            rgba(199,160,32,0.01) 70%,
+            transparent 100%
+        );
 }
 
 .gifts-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
-    gap: var(--space-md);
-    max-width: 900px;
+    max-width: 600px;
     margin: 0 auto;
 }
 
@@ -600,12 +619,19 @@ section {
     border: 1px solid rgba(199,160,32,0.2);
     padding: clamp(20px, 4vw, 30px);
     border-radius: 20px;
-    transition: transform 0.3s ease;
+
+    text-align: center;
+
+    transition: all 0.3s ease;
 }
 
 .gift-card:hover {
     transform: translateY(-5px);
     border-color: var(--accent-gold);
+
+    box-shadow:
+        0 0 20px rgba(199,160,32,0.15),
+        0 0 40px rgba(199,160,32,0.08);
 }
 
 .gift-icon {
@@ -623,6 +649,7 @@ section {
 .gift-card p {
     font-size: var(--fs-sm);
     color: var(--moon-white);
+    line-height: 1.7;
 }
 
 /* ===============================
@@ -661,9 +688,13 @@ section {
    MENSAJE FINAL
 ================================ */
 .final-msg {
-    font-family: 'Playfair Display', serif;
+     font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
     font-size: var(--fs-xl);
     color: var(--accent-gold);
+    text-shadow:
+        0 0 10px rgba(212,175,55,.4),
+        0 0 20px rgba(212,175,55,.2);
     padding: var(--space-xl) var(--space-md);
     text-align: center;
 }
